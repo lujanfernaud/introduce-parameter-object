@@ -3,29 +3,25 @@ require 'spec_helper'
 describe Package do
   describe '#height' do
     it 'returns package height' do
-      package.height = 5.0
-      expect(package.height).to eq(5.0)
+      expect(package.height).to eq(4.0)
     end
   end
 
   describe '#length' do
     it 'returns package length' do
-      package.length = 4
-      expect(package.length).to eq(4)
+      expect(package.length).to eq(3)
     end
   end
 
   describe '#weight' do
     it 'returns package weight' do
-      package.weight = 60
-      expect(package.weight).to eq(60)
+      expect(package.weight).to eq(50)
     end
   end
 
   describe '#width' do
     it 'returns package width' do
-      package.width = 3.1
-      expect(package.width).to eq(3.1)
+      expect(package.width).to eq(2.5)
     end
   end
 

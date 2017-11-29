@@ -88,7 +88,7 @@ end
 # package.rb
 
 class Package
-  attr_accessor :height, :length, :weight, :width
+  attr_reader :height, :length, :weight, :width
 
   def initialize(arguments = {})
     @height = arguments[:height]
