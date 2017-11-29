@@ -1,32 +1,30 @@
 class ShippingCalculator
-  EXPRESS_CONVERSION_FACTOR = 3.33
-  EXPRESS_RATE = 4.25
-  NORMAL_CONVERSION_FACTOR = 6.67
-  NORMAL_RATE = 2.75
+  def self.calculate_normal_shipping_for(package)
+    new(package, NormalShipping).total_cost
+  end
 
-  def calculate_cost(height, length, weight, width, express=nil)
-    volume = find_volume(height, length, width)
+  def self.calculate_express_shipping_for(package)
+    new(package, ExpressShipping).total_cost
+  end
 
-    if express
-      express_shipping(volume, weight)
-    else
-      normal_shipping(volume, weight)
-    end
+  def total_cost
+    package_cost.round(2)
   end
 
   private
 
-  def find_volume(height, length, width)
-    height * length * width
+  attr_reader :package, :shipping
+
+  def initialize(package, shipping)
+    @package  = package
+    @shipping = shipping
   end
 
-  def express_shipping(volume, weight)
-    cost = volume * (weight / EXPRESS_CONVERSION_FACTOR) * EXPRESS_RATE
-    cost.round(2)
+  def package_cost
+    package.volume * conversion * shipping.rate
   end
 
-  def normal_shipping(volume, weight)
-    cost = volume * (weight / NORMAL_CONVERSION_FACTOR) * NORMAL_RATE
-    cost.round(2)
+  def conversion
+    package.weight / shipping.conversion_factor
   end
 end

@@ -1,29 +1,25 @@
 require 'spec_helper'
 
-describe ShippingCalculator, '#calculate_cost' do
-  it 'determines the cost of normal shipping' do
-    height = 4.0
-    length = 3
-    weight = 50
-    width = 2.5
-    expected_cost = 618.44
+describe ShippingCalculator do
+  describe '.calculate_normal_shipping' do
+    it 'determines the cost of normal shipping' do
+      expected_cost = 618.44
+      cost = described_class.calculate_normal_shipping_for package
 
-    calculator =  ShippingCalculator.new
-    cost = calculator.calculate_cost(height, length, weight, width)
-
-    expect(cost).to eq expected_cost
+      expect(cost).to eq expected_cost
+    end
   end
 
-  it 'determines the cost of express shipping' do
-    height = 4.0
-    length = 3
-    weight = 50
-    width = 2.5
-    expected_cost = 1914.41
+  describe '.calculate_express_shipping' do
+    it 'determines the cost of express shipping' do
+      expected_cost = 1914.41
+      cost = described_class.calculate_express_shipping_for package
 
-    calculator =  ShippingCalculator.new
-    cost = calculator.calculate_cost(height, length, weight, width, true)
+      expect(cost).to eq expected_cost
+    end
+  end
 
-    expect(cost).to eq expected_cost
+  def package
+    @package ||= Package.new(height: 4.0, length: 3, weight: 50, width: 2.5)
   end
 end
